@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import Board from "./components/Board";
 
 function App() {
   return (
@@ -8,7 +9,9 @@ function App() {
         <div>aa</div>
         <div>test</div>
       </header>
-      <div>test</div>
+      <div>
+        <Board />
+      </div>
     </div>
   );
 }
