@@ -9,7 +9,7 @@ function App() {
         <div>aa</div>
         <div>test</div>
       </header>
-      <div>
+      <div className="App-board">
         <Board />
       </div>
     </div>

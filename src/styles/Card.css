@@ -1,12 +1,19 @@
-.Card {
-  width: 240px;
-  height: 360px;
-  border: 1px solid #dc6241;
+.Card-crop {
+  width: 224px;
+  height: 316px;
+  overflow: hidden;
   border-radius: 4px;
-  padding: 12px;
   transition: 0.15s;
 }
 
-.Card:hover {
+.Card {
+  margin: -32px -20px -24px -14px;
+
+  cursor: crosshair;
+  user-select: none;
+}
+
+.Card-crop:hover {
   box-shadow: 0 0 5px 5px #916c84;
+  background-color: #916c84;
 }

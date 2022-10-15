@@ -1,5 +1,7 @@
 .Board {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 230px);
+  grid-template-rows: repeat(2, 330px);
   gap: 24px;
   padding: 16px;
 }
