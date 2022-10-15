@@ -11,7 +11,12 @@ const Card = (props) => {
   const imgDom = () => {
     return (
       <div className="Card-crop">
-        <img src={image(props.number)} className="Card" draggable="false" />
+        <img
+          src={image(props.number)}
+          className="Card"
+          draggable="false"
+          alt={"Image number" + props.number}
+        />
       </div>
     );
   };
