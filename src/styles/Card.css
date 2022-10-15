@@ -1,7 +1,7 @@
 .Card-crop {
   width: 224px;
   height: 316px;
-  overflow: hidden;
+  /* overflow: hidden; */
   border-radius: 4px;
   transition: 0.15s;
 }
