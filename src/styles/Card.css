@@ -3,14 +3,50 @@
   height: 316px;
   /* overflow: hidden; */
   border-radius: 4px;
-  transition: box-shadow 0.15s, background-color 0.15s, transform 0.5s;
+  transition: box-shadow 0.15s, background-color 0.15s;
+}
+
+@keyframes rotatein {
+  from {
+    transform: rotateY(180deg);
+    z-index: -1;
+  }
+  to {
+    transform: rotateY(0deg);
+    z-index: 5;
+  }
+}
+
+@keyframes rotateout {
+  from {
+    transform: rotateY(0deg);
+    z-index: 5;
+  }
+
+  to {
+    transform: rotateY(180deg);
+    z-index: -1;
+  }
 }
 
 .Card {
+  animation: 0.5s ease-in rotatein;
   margin: -32px -20px -24px -14px;
 
   cursor: crosshair;
   user-select: none;
+
+  position: absolute;
+  z-index: 5;
+}
+
+.Card-cardback {
+  width: 224px;
+  height: 316px;
+  position: relative;
+  animation: 0.5s ease-in rotateout;
+
+  z-index: -1;
 }
 
 .Card-crop:hover {

@@ -1,5 +1,5 @@
 import "../styles/Card.css";
-import { useEffect, useState } from "react";
+import cardback from "../cardback.png";
 
 const Card = (props) => {
   const image = (i) => {
@@ -17,6 +17,12 @@ const Card = (props) => {
           draggable="false"
           alt={"Image number " + props.number}
           onClick={(e) => props.handleClick(e)}
+        />
+        <img
+          className="Card-cardback"
+          src={cardback}
+          onClick={(e) => props.handleClick(e)}
+          draggable="false"
         />
       </div>
     );
