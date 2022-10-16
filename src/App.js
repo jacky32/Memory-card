@@ -6,38 +6,59 @@ import "./styles/Board.css";
 function App() {
   const [currentCount, setCurrentCount] = useState(0);
   const [bestCount, setBestCount] = useState(0);
-  const [childData, setChildData] = useState(false);
   const [clickedChildren, setClickedChildren] = useState([]);
 
   const handleClick = (e) => {
     const newChild = e.target;
     if (clickedChildren.includes(newChild)) {
-      setClickedChildren([]);
-      setCurrentCount(0);
+      resetCounter();
     } else {
-      setClickedChildren([...clickedChildren, newChild]);
-      setCurrentCount(currentCount + 1);
+      addChildToCounter(newChild);
     }
   };
 
   useEffect(() => {
     handleBestCounter();
-    // return () => {
-    // };
   }, [currentCount]);
-
-  useEffect(() => {
-    if (childData === true) {
-    }
-  }, [childData]);
 
   const handleBestCounter = () => {
     if (currentCount >= bestCount) setBestCount(currentCount);
   };
 
-  const resetCounter = () => {};
+  const resetCounter = () => {
+    setClickedChildren([]);
+    setCurrentCount(0);
+  };
 
-  const numbers = [1, 4, 5, 6, 7, 8, 9, 10, 11, 15, 17, 19];
+  const addChildToCounter = (newChild) => {
+    setClickedChildren([...clickedChildren, newChild]);
+    setCurrentCount(currentCount + 1);
+  };
+
+  const shuffleNumbers = () => {
+    const numbers = [1, 4, 5, 6, 7, 8, 9, 10, 11, 15, 17, 19];
+    const shuffled = shuffleArray(numbers);
+    return shuffled.map((number) => {
+      return <Card key={number} number={number} handleClick={handleClick} />;
+    });
+  };
+
+  const shuffleArray = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  };
 
   return (
     <div className="App">
@@ -47,18 +68,7 @@ function App() {
         <div>Best: {bestCount} times</div>
       </header>
       <div className="App-board">
-        <div className="Board">
-          {numbers.map((number) => {
-            return (
-              <Card
-                key={number}
-                number={number}
-                resetClicked={setChildData}
-                handleClick={handleClick}
-              />
-            );
-          })}
-        </div>
+        <div className="Board">{shuffleNumbers()}</div>
       </div>
     </div>
   );
