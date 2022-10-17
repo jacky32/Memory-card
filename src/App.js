@@ -11,21 +11,27 @@ function App() {
     1, 4, 5, 6, 7, 8, 9, 10, 11, 15, 17, 19,
   ]);
 
+  useEffect(() => {
+    if (currentCount >= bestCount) setBestCount(currentCount);
+  }, [currentCount, bestCount]);
+
+  useEffect(() => {
+    toggleAnimation("div.App-header-current", "update-score");
+  }, [currentCount]);
+
+  useEffect(() => {
+    toggleAnimation("div.App-header-alltime", "update-score");
+  }, [bestCount]);
+
   const handleClick = (e) => {
     const newChild = e.target;
     toggleAnimations();
-    // addRotateOutAnimation();
-    // addRotateInAnimation();
     if (clickedChildren.includes(newChild)) {
       resetCounter();
     } else {
       addChildToCounter(newChild);
     }
   };
-
-  useEffect(() => {
-    if (currentCount >= bestCount) setBestCount(currentCount);
-  }, [currentCount, bestCount]);
 
   const resetCounter = () => {
     setClickedChildren([]);
@@ -42,8 +48,8 @@ function App() {
     toggleAnimation("img.Card", "Card-rotatein");
   };
 
-  const toggleAnimation = (node, toggleClass) => {
-    const list = document.querySelectorAll(node);
+  const toggleAnimation = (nodeClass, toggleClass) => {
+    const list = document.querySelectorAll(nodeClass);
     if (list.length === 0) {
       return;
     } else {
@@ -51,34 +57,6 @@ function App() {
         node.classList.remove(toggleClass);
         setTimeout(() => {
           node.classList.add(toggleClass);
-        }, 10);
-      });
-    }
-  };
-
-  const addRotateOutAnimation = () => {
-    const list = document.querySelectorAll("img.Card-cardback");
-    if (list.length === 0) {
-      return;
-    } else {
-      list.forEach((node) => {
-        node.classList.remove("Card-rotateout");
-        setTimeout(() => {
-          node.classList.add("Card-rotateout");
-        }, 10);
-      });
-    }
-  };
-
-  const addRotateInAnimation = () => {
-    const list = document.querySelectorAll("img.Card");
-    if (list.length === 0) {
-      return;
-    } else {
-      list.forEach((node) => {
-        node.classList.remove("Card-rotatein");
-        setTimeout(() => {
-          node.classList.add("Card-rotatein");
         }, 10);
       });
     }
@@ -116,9 +94,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>aa</div>
-        <div>You clicked {currentCount} times</div>
-        <div>Best: {bestCount} times</div>
+        <div className="App-header-name">Memory card game</div>
+        <div>Don't click the same card twice!</div>
+        <div className="App-header-score">
+          <div className="App-header-current">Current best: {currentCount}</div>
+          <div className="App-header-alltime">All-time best: {bestCount}</div>
+        </div>
       </header>
       <div className="App-board">
         <div className="Board">{shuffleNumbers()}</div>

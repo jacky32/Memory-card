@@ -15,6 +15,7 @@
   color: #faf7f6;
   padding-right: 5vw;
   padding-left: 5vw;
+  font-size: 18px;
 }
 
 .App-board {
@@ -22,6 +23,37 @@
   justify-content: center;
   align-items: center;
 }
+
+.App-header-name {
+  font-weight: 600;
+}
+
+.App-header-score {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+}
+
+.update-score {
+  animation: 0.25s linear updatescore;
+}
+
+@keyframes updatescore {
+  from {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.1;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
 /* COLORS
 #e5dbd8
 #FAF7F6
