@@ -7,9 +7,15 @@ function App() {
   const [currentCount, setCurrentCount] = useState(0);
   const [bestCount, setBestCount] = useState(0);
   const [clickedChildren, setClickedChildren] = useState([]);
+  const [numbers, setNumbers] = useState([
+    1, 4, 5, 6, 7, 8, 9, 10, 11, 15, 17, 19,
+  ]);
 
   const handleClick = (e) => {
     const newChild = e.target;
+    toggleAnimations();
+    // addRotateOutAnimation();
+    // addRotateInAnimation();
     if (clickedChildren.includes(newChild)) {
       resetCounter();
     } else {
@@ -18,12 +24,8 @@ function App() {
   };
 
   useEffect(() => {
-    handleBestCounter();
-  }, [currentCount]);
-
-  const handleBestCounter = () => {
     if (currentCount >= bestCount) setBestCount(currentCount);
-  };
+  }, [currentCount, bestCount]);
 
   const resetCounter = () => {
     setClickedChildren([]);
@@ -35,10 +37,61 @@ function App() {
     setCurrentCount(currentCount + 1);
   };
 
+  const toggleAnimations = () => {
+    toggleAnimation("img.Card-cardback", "Card-rotateout");
+    toggleAnimation("img.Card", "Card-rotatein");
+  };
+
+  const toggleAnimation = (node, toggleClass) => {
+    const list = document.querySelectorAll(node);
+    if (list.length === 0) {
+      return;
+    } else {
+      list.forEach((node) => {
+        node.classList.remove(toggleClass);
+        setTimeout(() => {
+          node.classList.add(toggleClass);
+        }, 10);
+      });
+    }
+  };
+
+  const addRotateOutAnimation = () => {
+    const list = document.querySelectorAll("img.Card-cardback");
+    if (list.length === 0) {
+      return;
+    } else {
+      list.forEach((node) => {
+        node.classList.remove("Card-rotateout");
+        setTimeout(() => {
+          node.classList.add("Card-rotateout");
+        }, 10);
+      });
+    }
+  };
+
+  const addRotateInAnimation = () => {
+    const list = document.querySelectorAll("img.Card");
+    if (list.length === 0) {
+      return;
+    } else {
+      list.forEach((node) => {
+        node.classList.remove("Card-rotatein");
+        setTimeout(() => {
+          node.classList.add("Card-rotatein");
+        }, 10);
+      });
+    }
+  };
+
   const shuffleNumbers = () => {
-    const numbers = [1, 4, 5, 6, 7, 8, 9, 10, 11, 15, 17, 19];
-    const shuffled = shuffleArray(numbers);
-    return shuffled.map((number) => {
+    const newNumbers = numbers;
+    shuffleArray(newNumbers);
+    if (newNumbers !== numbers) {
+      setNumbers(newNumbers);
+    }
+
+    return numbers.map((number) => {
       return <Card key={number} number={number} handleClick={handleClick} />;
     });
   };
@@ -47,7 +100,7 @@ function App() {
     let currentIndex = array.length,
       randomIndex;
 
-    while (currentIndex != 0) {
+    while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 

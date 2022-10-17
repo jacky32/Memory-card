@@ -13,7 +13,7 @@ const Card = (props) => {
       <div className="Card-crop">
         <img
           src={image(props.number)}
-          className="Card"
+          className="Card Card-rotatein"
           draggable="false"
           alt={"Image number " + props.number}
           onClick={(e) => props.handleClick(e)}
